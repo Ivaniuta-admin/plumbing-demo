@@ -72,24 +72,24 @@
         </span>
         АкваМастер
       </a>
-      <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-600" aria-label="Основная навигация">
+      <nav class="hidden lg:flex gap-8 text-sm font-semibold text-slate-600" aria-label="Основная навигация">
         <a href="#services" class="hover:text-brand-600">Услуги</a>
         <a href="#how" class="hover:text-brand-600">Как работаем</a>
         <a href="#area" class="hover:text-brand-600">Зона выезда</a>
         <a href="#faq" class="hover:text-brand-600">Вопросы</a>
       </nav>
       <div class="flex items-center gap-2 sm:gap-4">
-        <a href="tel:+10000000000" class="hidden sm:flex items-center gap-2 text-sm font-bold hover:text-brand-600">
+        <a href="tel:+10000000000" class="hidden lg:flex items-center gap-2 text-sm font-bold hover:text-brand-600">
           <span class="w-8 h-8 rounded-full bg-brand-50 text-brand-600 grid place-items-center"><i data-icon="phone" class="w-4 h-4"></i></span>
           +1 (000) 000-00-00
         </a>
-        <a href="#order" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition">Вызвать мастера</a>
-        <button id="menu-btn" class="md:hidden w-10 h-10 grid place-items-center rounded-lg border border-slate-200" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+        <a href="#order" class="hidden sm:inline-flex whitespace-nowrap bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition">Вызвать мастера</a>
+        <button id="menu-btn" class="lg:hidden w-10 h-10 grid place-items-center rounded-lg border border-slate-200" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
           <i data-icon="menu" class="w-5 h-5"></i>
         </button>
       </div>
     </div>
-    <nav id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white" aria-label="Мобильная навигация">
+    <nav id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white" aria-label="Мобильная навигация">
       <div class="max-w-6xl mx-auto px-4 py-2 flex flex-col text-base font-semibold">
         <a href="#services" class="py-3 border-b border-slate-100">Услуги</a>
         <a href="#how" class="py-3 border-b border-slate-100">Как работаем</a>
@@ -125,7 +125,7 @@
       </div>
 
       <!-- Визуальный образ: трубы, вентиль, ключ (вместо фото — замените на фото мастера клиента) -->
-      <div class="hidden sm:block relative">
+      <div class="hidden lg:block relative">
         <svg viewBox="0 0 480 400" class="w-full h-auto rounded-3xl" role="img" aria-label="Иллюстрация: трубы, вентиль и разводной ключ">
           <rect width="480" height="400" rx="28" fill="#14304F"/>
           <g stroke="#1B3B5E" stroke-width="2">
@@ -161,7 +161,7 @@
           </g>
           <!-- бейдж -->
           <g transform="translate(300 40)">
-            <rect width="148" height="64" rx="16" fill="#FFFFFF"/>
+            <rect width="176" height="64" rx="16" fill="#FFFFFF"/>
             <circle cx="32" cy="32" r="18" fill="#FFF3DC"/>
             <path d="M32 22v10l6 4" stroke="#D97F06" stroke-width="3" stroke-linecap="round" fill="none"/>
             <text x="60" y="30" font-family="Manrope, sans-serif" font-size="18" font-weight="800" fill="#0C2240">24/7</text>
@@ -464,7 +464,7 @@
       ['Бойлер', 'flame'], ['Унитаз', 'toilet'], ['Другое', 'more']
     ];
     document.getElementById('quick').innerHTML = quick.map(function (q) {
-      return '<button type="button" data-problem="' + q[0] + '" class="quick-btn group flex items-center gap-3 rounded-xl border border-slate-200 px-4 py-3.5 text-left font-bold hover:border-brand-500 hover:bg-brand-50 transition">' +
+      return '<button type="button" data-problem="' + q[0] + '" class="quick-btn group flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 min-w-0 rounded-xl border border-slate-200 px-3 sm:px-4 py-3 text-left font-bold hover:border-brand-500 hover:bg-brand-50 transition">' +
         '<span class="w-10 h-10 shrink-0 rounded-lg bg-brand-50 text-brand-600 grid place-items-center group-hover:bg-white">' + icon(q[1]) + '</span>' + q[0] + '</button>';
     }).join('');
 
