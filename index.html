@@ -525,7 +525,7 @@
     // ===== Быстрый выбор → подставляем в форму =====
     const problemSelect = document.getElementById('f-problem');
     function pickProblem(p) {
-      const opt = [].slice.call(problemSelect.options).find(function (o) { return p.toLowerCase().includes(o.text.toLowerCase()); });
+      const opt = [].slice.call(problemSelect.options).find(function (o) { return p.toLowerCase().includes(o.text.toLowerCase().slice(0, 6)); });
       problemSelect.value = opt ? opt.text : 'Другое';
       document.getElementById('order').scrollIntoView();
       setTimeout(function () { document.getElementById('f-name').focus({ preventScroll: true }); }, 400);
