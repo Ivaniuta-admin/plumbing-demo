@@ -8,18 +8,24 @@
   <meta property="og:title" content="АкваМастер — сантехник за 60 минут" />
   <meta property="og:description" content="Аварийный выезд 24/7, фиксированные цены, гарантия." />
   <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0C2240" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: { sans: ['Manrope', 'system-ui', 'sans-serif'] },
           colors: {
-            ink: '#0B1B2B',
-            water: { 50: '#EEF7FF', 100: '#D8ECFF', 500: '#1E88E5', 600: '#1670C2', 700: '#0F5799' },
-            alarm: { 500: '#FF6B2C', 600: '#E85614' }
+            navy: { 950: '#08172A', 900: '#0C2240', 800: '#14304F', 700: '#284766' },
+            brand: { 50: '#EEF6FD', 100: '#D6EBFB', 200: '#B3D8F6', 500: '#1689E0', 600: '#0B72C4', 700: '#0A5C9E' },
+            aqua: { 50: '#E7F7F6', 100: '#C8EEEC', 500: '#14A3A0', 600: '#0E8582' },
+            warm: { 300: '#FFCB73', 400: '#FFB547', 500: '#F59E0B' }
+          },
+          boxShadow: {
+            card: '0 1px 2px rgba(12,34,64,.06), 0 8px 24px -12px rgba(12,34,64,.18)'
           }
         }
       }
@@ -39,267 +45,456 @@
   </script>
   <style>
     html { scroll-behavior: smooth; }
-    .wave { background: radial-gradient(1200px 400px at 80% -10%, rgba(30,136,229,.35), transparent 60%), linear-gradient(180deg, #0B1B2B 0%, #0E2740 100%); }
-    details[open] summary .chev { transform: rotate(180deg); }
-    .pulse { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(255,107,44,.6)} 70%{box-shadow:0 0 0 14px rgba(255,107,44,0)} 100%{box-shadow:0 0 0 0 rgba(255,107,44,0)} }
+    section[id] { scroll-margin-top: 80px; }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] .chev { transform: rotate(180deg); }
+    .field { width: 100%; border: 1px solid #CBD5E1; border-radius: 12px; padding: 12px 14px; font-size: 16px; background: #fff; color: #0C2240; transition: border-color .15s, box-shadow .15s; }
+    .field:focus { outline: none; border-color: #1689E0; box-shadow: 0 0 0 3px rgba(22,137,224,.18); }
+    .field::placeholder { color: #94A3B8; }
+    select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px; }
+    :focus-visible { outline: 3px solid #1689E0; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
   </style>
 </head>
-<body class="font-sans text-ink bg-white antialiased">
+<body class="font-sans text-navy-900 bg-white antialiased pb-20 md:pb-0">
 
   <!-- Демо-плашка -->
-  <div class="bg-water-50 text-water-700 text-xs sm:text-sm text-center py-2 px-4">
+  <div class="bg-navy-950 text-slate-300 text-xs text-center py-2 px-4">
     Демо-версия сайта: компания, цены и контакты вымышлены
   </div>
 
-  <!-- Шапка -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-100">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2 font-extrabold text-lg">
-        <span class="w-9 h-9 rounded-xl bg-water-500 grid place-items-center text-white">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2s7 7.6 7 12.5A7 7 0 0 1 5 14.5C5 9.6 12 2 12 2z"/></svg>
+  <!-- 1. Шапка -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-2.5 font-extrabold text-lg tracking-tight">
+        <span class="w-9 h-9 rounded-lg bg-brand-600 grid place-items-center text-white">
+          <i data-icon="droplet" class="w-5 h-5"></i>
         </span>
         АкваМастер
       </a>
-      <nav class="hidden md:flex gap-7 text-sm font-semibold text-slate-600">
-        <a href="#services" class="hover:text-water-600">Услуги</a>
-        <a href="#how" class="hover:text-water-600">Как работаем</a>
-        <a href="#area" class="hover:text-water-600">Зона выезда</a>
-        <a href="#faq" class="hover:text-water-600">Вопросы</a>
+      <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-600" aria-label="Основная навигация">
+        <a href="#services" class="hover:text-brand-600">Услуги</a>
+        <a href="#how" class="hover:text-brand-600">Как работаем</a>
+        <a href="#area" class="hover:text-brand-600">Зона выезда</a>
+        <a href="#faq" class="hover:text-brand-600">Вопросы</a>
       </nav>
-      <div class="flex items-center gap-3">
-        <a href="tel:+10000000000" class="hidden sm:block text-sm font-bold">+1 (000) 000-00-00</a>
-        <a href="#order" class="bg-water-500 hover:bg-water-600 text-white text-sm font-bold px-4 py-2.5 rounded-xl">Вызвать мастера</a>
+      <div class="flex items-center gap-2 sm:gap-4">
+        <a href="tel:+10000000000" class="hidden sm:flex items-center gap-2 text-sm font-bold hover:text-brand-600">
+          <span class="w-8 h-8 rounded-full bg-brand-50 text-brand-600 grid place-items-center"><i data-icon="phone" class="w-4 h-4"></i></span>
+          +1 (000) 000-00-00
+        </a>
+        <a href="#order" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition">Вызвать мастера</a>
+        <button id="menu-btn" class="md:hidden w-10 h-10 grid place-items-center rounded-lg border border-slate-200" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-icon="menu" class="w-5 h-5"></i>
+        </button>
       </div>
     </div>
+    <nav id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white" aria-label="Мобильная навигация">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex flex-col text-base font-semibold">
+        <a href="#services" class="py-3 border-b border-slate-100">Услуги</a>
+        <a href="#how" class="py-3 border-b border-slate-100">Как работаем</a>
+        <a href="#area" class="py-3 border-b border-slate-100">Зона выезда</a>
+        <a href="#faq" class="py-3 border-b border-slate-100">Вопросы</a>
+        <a href="tel:+10000000000" class="py-3 flex items-center gap-2 text-brand-600"><i data-icon="phone" class="w-4 h-4"></i>+1 (000) 000-00-00</a>
+      </div>
+    </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="wave text-white">
-    <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+  <!-- 2. Первый экран -->
+  <section class="bg-navy-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 pt-12 pb-24 md:pt-20 md:pb-32 grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
       <div>
-        <span class="inline-flex items-center gap-2 bg-white/10 rounded-full px-3 py-1 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-green-400"></span> Мастера на линии 24/7
+        <span class="inline-flex items-center gap-2 border border-white/15 rounded-full px-3 py-1.5 text-xs font-semibold text-slate-200">
+          <span class="w-2 h-2 rounded-full bg-aqua-500"></span> Мастера на линии 24/7
         </span>
-        <h1 class="mt-5 text-4xl md:text-5xl font-extrabold leading-tight">Сантехник у вас<br>за 60 минут</h1>
-        <p class="mt-5 text-lg text-slate-300 max-w-md">Засоры, протечки, смесители, бойлеры. Фиксированная цена до начала работ и гарантия 12 месяцев.</p>
+        <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">Сантехник у вас<br><span class="text-brand-200">за 60 минут</span></h1>
+        <p class="mt-6 text-lg text-slate-300 max-w-lg leading-relaxed">Засоры, протечки, смесители, бойлеры. Фиксированная цена до начала работ и гарантия 12 месяцев.</p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3">
-          <a href="#order" class="bg-alarm-500 hover:bg-alarm-600 text-white font-bold px-6 py-4 rounded-2xl text-center pulse">Оставить заявку</a>
-          <a href="tel:+10000000000" class="bg-white/10 hover:bg-white/20 font-bold px-6 py-4 rounded-2xl text-center">Позвонить сейчас</a>
+          <a href="#order" class="inline-flex items-center justify-center gap-2 bg-warm-400 hover:bg-warm-300 text-navy-950 font-bold px-6 py-4 rounded-xl transition">
+            <i data-icon="clipboard" class="w-5 h-5"></i>Оставить заявку
+          </a>
+          <a href="tel:+10000000000" class="inline-flex items-center justify-center gap-2 border border-white/25 hover:bg-white/10 font-bold px-6 py-4 rounded-xl transition">
+            <i data-icon="phone" class="w-5 h-5"></i>Позвонить сейчас
+          </a>
         </div>
-        <div class="mt-10 grid grid-cols-3 gap-4 max-w-md">
-          <div><div class="text-2xl font-extrabold">60 мин</div><div class="text-xs text-slate-400">средний приезд</div></div>
-          <div><div class="text-2xl font-extrabold">12 мес</div><div class="text-xs text-slate-400">гарантия</div></div>
-          <div><div class="text-2xl font-extrabold">0 ₴</div><div class="text-xs text-slate-400">диагностика при ремонте</div></div>
-        </div>
+        <dl class="mt-10 grid grid-cols-3 gap-4 max-w-lg border-t border-white/10 pt-6">
+          <div><dt class="sr-only">Средний приезд</dt><dd class="text-2xl sm:text-3xl font-extrabold">60 мин</dd><dd class="mt-1 text-xs sm:text-sm text-slate-400">средний приезд</dd></div>
+          <div><dt class="sr-only">Гарантия</dt><dd class="text-2xl sm:text-3xl font-extrabold">12 мес</dd><dd class="mt-1 text-xs sm:text-sm text-slate-400">гарантия</dd></div>
+          <div><dt class="sr-only">Диагностика</dt><dd class="text-2xl sm:text-3xl font-extrabold">0 ₴</dd><dd class="mt-1 text-xs sm:text-sm text-slate-400">диагностика при ремонте</dd></div>
+        </dl>
       </div>
-      <!-- Быстрая карточка -->
-      <div class="bg-white text-ink rounded-3xl p-6 md:p-8 shadow-2xl">
-        <h2 class="text-xl font-extrabold">Что случилось?</h2>
-        <p class="text-sm text-slate-500 mt-1">Выберите проблему, и мы сразу перейдём к заявке</p>
-        <div class="mt-5 grid grid-cols-2 gap-3" id="quick">
-          <button data-problem="Засор" class="quick-btn border border-slate-200 hover:border-water-500 hover:bg-water-50 rounded-2xl p-4 text-left font-semibold">🚿 Засор</button>
-          <button data-problem="Протечка" class="quick-btn border border-slate-200 hover:border-water-500 hover:bg-water-50 rounded-2xl p-4 text-left font-semibold">💧 Протечка</button>
-          <button data-problem="Смеситель" class="quick-btn border border-slate-200 hover:border-water-500 hover:bg-water-50 rounded-2xl p-4 text-left font-semibold">🚰 Смеситель</button>
-          <button data-problem="Бойлер" class="quick-btn border border-slate-200 hover:border-water-500 hover:bg-water-50 rounded-2xl p-4 text-left font-semibold">🔥 Бойлер</button>
-          <button data-problem="Унитаз" class="quick-btn border border-slate-200 hover:border-water-500 hover:bg-water-50 rounded-2xl p-4 text-left font-semibold">🚽 Унитаз</button>
-          <button data-problem="Другое" class="quick-btn border border-slate-200 hover:border-water-500 hover:bg-water-50 rounded-2xl p-4 text-left font-semibold">🔧 Другое</button>
-        </div>
+
+      <!-- Визуальный образ: трубы, вентиль, ключ (вместо фото — замените на фото мастера клиента) -->
+      <div class="hidden sm:block relative">
+        <svg viewBox="0 0 480 400" class="w-full h-auto rounded-3xl" role="img" aria-label="Иллюстрация: трубы, вентиль и разводной ключ">
+          <rect width="480" height="400" rx="28" fill="#14304F"/>
+          <g stroke="#1B3B5E" stroke-width="2">
+            <path d="M0 80h480M0 160h480M0 240h480M0 320h480M80 0v400M160 0v400M240 0v400M320 0v400M400 0v400"/>
+          </g>
+          <!-- трубы -->
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M120 -10 V170 Q120 210 160 210 H330 Q370 210 370 250 V410" stroke="#9FB6CE" stroke-width="30"/>
+            <path d="M120 -10 V170 Q120 210 160 210 H330 Q370 210 370 250 V410" stroke="#C3D3E3" stroke-width="10" transform="translate(-6 -6)" opacity=".55"/>
+          </g>
+          <!-- муфты -->
+          <g fill="#6F8AA6">
+            <rect x="98" y="70" width="44" height="22" rx="5"/>
+            <rect x="348" y="300" width="44" height="22" rx="5"/>
+            <rect x="196" y="188" width="22" height="44" rx="5"/>
+          </g>
+          <!-- вентиль -->
+          <rect x="262" y="160" width="16" height="36" rx="4" fill="#0B72C4"/>
+          <circle cx="270" cy="150" r="30" fill="none" stroke="#1689E0" stroke-width="9"/>
+          <path d="M270 120v60M240 150h60" stroke="#1689E0" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="270" cy="150" r="9" fill="#FFB547"/>
+          <!-- капли -->
+          <g fill="#14A3A0">
+            <path d="M370 335c0 0 12 14 12 22a12 12 0 0 1-24 0c0-8 12-22 12-22z"/>
+            <path d="M398 362c0 0 8 9 8 15a8 8 0 0 1-16 0c0-6 8-15 8-15z" opacity=".7"/>
+          </g>
+          <!-- ключ -->
+          <g transform="rotate(-38 150 300)">
+            <rect x="60" y="288" width="190" height="26" rx="13" fill="#E2E8F0"/>
+            <rect x="72" y="296" width="120" height="10" rx="5" fill="#CBD5E1"/>
+            <path d="M240 270 h44 a10 10 0 0 1 10 10 v14 h-30 v14 h30 v14 a10 10 0 0 1 -10 10 h-44 z" fill="#E2E8F0"/>
+            <circle cx="78" cy="301" r="6" fill="#94A3B8"/>
+          </g>
+          <!-- бейдж -->
+          <g transform="translate(300 40)">
+            <rect width="148" height="64" rx="16" fill="#FFFFFF"/>
+            <circle cx="32" cy="32" r="18" fill="#FFF3DC"/>
+            <path d="M32 22v10l6 4" stroke="#D97F06" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <text x="60" y="30" font-family="Manrope, sans-serif" font-size="18" font-weight="800" fill="#0C2240">24/7</text>
+            <text x="60" y="48" font-family="Manrope, sans-serif" font-size="11" font-weight="600" fill="#64748B">аварийный выезд</text>
+          </g>
+        </svg>
       </div>
     </div>
   </section>
 
-  <!-- Услуги -->
-  <section id="services" class="max-w-6xl mx-auto px-4 py-20">
+  <!-- 3. Быстрый выбор проблемы -->
+  <section class="px-4 -mt-14 md:-mt-16 relative z-10" aria-labelledby="quick-title">
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-card border border-slate-100 p-5 sm:p-7">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-1">
+        <h2 id="quick-title" class="text-xl font-extrabold">Что случилось?</h2>
+        <p class="text-sm text-slate-500">Выберите проблему, и мы сразу перейдём к заявке</p>
+      </div>
+      <div class="mt-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="quick"></div>
+    </div>
+  </section>
+
+  <!-- 4. Услуги -->
+  <section id="services" class="max-w-6xl mx-auto px-4 py-20 md:py-24">
     <div class="max-w-2xl">
-      <h2 class="text-3xl md:text-4xl font-extrabold">Услуги и цены</h2>
-      <p class="mt-3 text-slate-500">Точную стоимость мастер называет после осмотра, до начала работ. Без доплат по ходу.</p>
+      <p class="text-sm font-bold text-aqua-600 uppercase tracking-wider">Услуги</p>
+      <h2 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Услуги и цены</h2>
+      <p class="mt-3 text-slate-600 leading-relaxed">Точную стоимость мастер называет после осмотра, до начала работ. Без доплат по ходу.</p>
     </div>
     <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="services-grid"></div>
   </section>
 
-  <!-- Аварийный блок -->
-  <section class="px-4">
-    <div class="max-w-6xl mx-auto bg-alarm-500 text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+  <!-- 5. Аварийный блок -->
+  <section class="px-4" aria-labelledby="emergency-title">
+    <div class="max-w-6xl mx-auto bg-navy-900 text-white rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col md:flex-row md:items-center gap-6 border-l-[6px] border-warm-400">
+      <span class="shrink-0 w-14 h-14 rounded-xl bg-warm-400 text-navy-950 grid place-items-center">
+        <i data-icon="alert" class="w-7 h-7"></i>
+      </span>
+      <div class="flex-1">
+        <h2 id="emergency-title" class="text-2xl md:text-3xl font-extrabold tracking-tight">Прорвало трубу? Заливает соседей?</h2>
+        <p class="mt-2 text-slate-300 leading-relaxed">Перекройте воду на входе в квартиру и звоните. Аварийная бригада выезжает сразу, даже ночью.</p>
+      </div>
+      <a href="tel:+10000000000" class="shrink-0 inline-flex items-center justify-center gap-2 bg-warm-400 hover:bg-warm-300 text-navy-950 font-extrabold px-7 py-4 rounded-xl transition">
+        <i data-icon="phone" class="w-5 h-5"></i>Аварийный вызов
+      </a>
+    </div>
+  </section>
+
+  <!-- 6. Как работаем -->
+  <section id="how" class="max-w-6xl mx-auto px-4 py-20 md:py-24">
+    <p class="text-sm font-bold text-aqua-600 uppercase tracking-wider">Порядок работы</p>
+    <h2 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Как мы работаем</h2>
+    <ol class="mt-10 grid md:grid-cols-3 gap-5">
+      <li class="relative rounded-2xl border border-slate-200 p-7">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-brand-600 text-white font-extrabold grid place-items-center">1</span>
+          <i data-icon="clipboard" class="w-6 h-6 text-brand-600"></i>
+        </div>
+        <h3 class="mt-5 font-bold text-lg">Заявка</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">Через сайт, Telegram, WhatsApp или звонок. Можно приложить фото проблемы.</p>
+      </li>
+      <li class="relative rounded-2xl border border-slate-200 p-7">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-brand-600 text-white font-extrabold grid place-items-center">2</span>
+          <i data-icon="phone" class="w-6 h-6 text-brand-600"></i>
+        </div>
+        <h3 class="mt-5 font-bold text-lg">Звонок мастера</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">Перезваниваем в течение 10 минут, уточняем детали и время приезда.</p>
+      </li>
+      <li class="relative rounded-2xl border border-slate-200 p-7">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-brand-600 text-white font-extrabold grid place-items-center">3</span>
+          <i data-icon="shield" class="w-6 h-6 text-brand-600"></i>
+        </div>
+        <h3 class="mt-5 font-bold text-lg">Ремонт с гарантией</h3>
+        <p class="mt-2 text-slate-600 leading-relaxed">Фиксируем цену, делаем работу, убираем за собой и выдаём гарантию.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 7. Зона выезда -->
+  <section id="area" class="bg-brand-50">
+    <div class="max-w-6xl mx-auto px-4 py-20 md:py-24 grid md:grid-cols-2 gap-10 items-center">
       <div>
-        <h2 class="text-2xl md:text-3xl font-extrabold">Прорвало трубу? Заливает соседей?</h2>
-        <p class="mt-2 text-white/90">Перекройте воду на входе в квартиру и звоните. Аварийная бригада выезжает сразу, даже ночью.</p>
+        <p class="text-sm font-bold text-aqua-600 uppercase tracking-wider">География</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Зона выезда</h2>
+        <p class="mt-3 text-slate-600 leading-relaxed">Работаем по всему городу и пригородам. Выезд в пределах города бесплатный.</p>
+        <ul class="mt-6 flex flex-wrap gap-2" id="districts"></ul>
       </div>
-      <a href="tel:+10000000000" class="shrink-0 bg-white text-alarm-600 font-extrabold px-7 py-4 rounded-2xl text-center">Аварийный вызов</a>
-    </div>
-  </section>
-
-  <!-- Как работаем -->
-  <section id="how" class="max-w-6xl mx-auto px-4 py-20">
-    <h2 class="text-3xl md:text-4xl font-extrabold">Как мы работаем</h2>
-    <div class="mt-10 grid md:grid-cols-3 gap-5">
-      <div class="rounded-3xl bg-slate-50 p-7">
-        <div class="text-water-500 font-extrabold text-4xl">01</div>
-        <h3 class="mt-4 font-bold text-lg">Заявка</h3>
-        <p class="mt-2 text-slate-500">Через сайт, Telegram, WhatsApp или звонок. Можно приложить фото проблемы.</p>
-      </div>
-      <div class="rounded-3xl bg-slate-50 p-7">
-        <div class="text-water-500 font-extrabold text-4xl">02</div>
-        <h3 class="mt-4 font-bold text-lg">Звонок мастера</h3>
-        <p class="mt-2 text-slate-500">Перезваниваем в течение 10 минут, уточняем детали и время приезда.</p>
-      </div>
-      <div class="rounded-3xl bg-slate-50 p-7">
-        <div class="text-water-500 font-extrabold text-4xl">03</div>
-        <h3 class="mt-4 font-bold text-lg">Ремонт с гарантией</h3>
-        <p class="mt-2 text-slate-500">Фиксируем цену, делаем работу, убираем за собой и выдаём гарантию.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Зона выезда -->
-  <section id="area" class="bg-water-50">
-    <div class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-extrabold">Зона выезда</h2>
-        <p class="mt-3 text-slate-600">Работаем по всему городу и пригородам. Выезд в пределах города бесплатный.</p>
-        <div class="mt-6 flex flex-wrap gap-2" id="districts"></div>
-      </div>
-      <div class="rounded-3xl bg-white h-72 grid place-items-center text-slate-400 border border-water-100">
-        Здесь будет карта Google с зоной обслуживания
-      </div>
-    </div>
-  </section>
-
-  <!-- Отзывы -->
-  <section class="max-w-6xl mx-auto px-4 py-20">
-    <h2 class="text-3xl md:text-4xl font-extrabold">Отзывы клиентов</h2>
-    <div class="mt-8 rounded-3xl border-2 border-dashed border-slate-200 p-10 text-center text-slate-400">
-      Здесь будут настоящие отзывы ваших клиентов, например подтянутые из Google Business Profile
-    </div>
-  </section>
-
-  <!-- Заявка -->
-  <section id="order" class="wave text-white">
-    <div class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-extrabold">Оставьте заявку</h2>
-        <p class="mt-3 text-slate-300">Мастер перезвонит в течение 10 минут. Или напишите нам там, где вам удобнее:</p>
-        <div class="mt-6 flex flex-col sm:flex-row gap-3">
-          <a href="https://t.me/your_username" target="_blank" rel="noopener" class="bg-[#229ED9] hover:opacity-90 font-bold px-5 py-3 rounded-xl text-center">Telegram</a>
-          <a href="https://wa.me/10000000000" target="_blank" rel="noopener" class="bg-[#25D366] hover:opacity-90 font-bold px-5 py-3 rounded-xl text-center">WhatsApp</a>
-          <a href="tel:+10000000000" class="bg-white/10 hover:bg-white/20 font-bold px-5 py-3 rounded-xl text-center">Позвонить</a>
+      <div class="relative rounded-2xl overflow-hidden border border-brand-100 bg-white h-72 md:h-80">
+        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#F5F9FD"/>
+          <path d="M-10 210 C80 180 140 240 230 200 S360 150 410 170" stroke="#C8EEEC" stroke-width="22" fill="none"/>
+          <g stroke="#E2E8F0" stroke-width="8" fill="none" stroke-linecap="round">
+            <path d="M40 0v300M150 0v300M290 0v300M0 70h400M0 140h400M0 250h400"/>
+          </g>
+          <circle cx="210" cy="125" r="70" fill="#1689E0" opacity=".08" stroke="#1689E0" stroke-opacity=".35" stroke-dasharray="6 6"/>
+        </svg>
+        <div class="absolute inset-0 grid place-items-center p-6">
+          <div class="bg-white/95 rounded-xl shadow-card px-5 py-4 flex items-center gap-3 max-w-xs">
+            <span class="w-10 h-10 shrink-0 rounded-full bg-brand-600 text-white grid place-items-center"><i data-icon="pin" class="w-5 h-5"></i></span>
+            <p class="text-sm text-slate-600">Здесь будет карта Google с зоной обслуживания</p>
+          </div>
         </div>
       </div>
-      <form id="order-form" class="bg-white text-ink rounded-3xl p-6 md:p-8 space-y-4" novalidate>
-        <div>
-          <label class="text-sm font-semibold" for="f-name">Имя</label>
-          <input id="f-name" name="name" required class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-water-500" placeholder="Как к вам обращаться" />
+    </div>
+  </section>
+
+  <!-- 8. Отзывы -->
+  <section class="max-w-6xl mx-auto px-4 py-20 md:py-24" aria-labelledby="reviews-title">
+    <p class="text-sm font-bold text-aqua-600 uppercase tracking-wider">Отзывы</p>
+    <h2 id="reviews-title" class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Отзывы клиентов</h2>
+    <div class="mt-8 rounded-2xl border-2 border-dashed border-slate-200 p-8 sm:p-12 text-center">
+      <span class="mx-auto w-12 h-12 rounded-full bg-slate-100 text-slate-400 grid place-items-center"><i data-icon="message" class="w-6 h-6"></i></span>
+      <p class="mt-4 text-slate-500 max-w-md mx-auto">Здесь будут настоящие отзывы ваших клиентов, например подтянутые из Google Business Profile</p>
+    </div>
+  </section>
+
+  <!-- 9. Заявка -->
+  <section id="order" class="bg-navy-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 py-20 md:py-24 grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-start">
+      <div>
+        <p class="text-sm font-bold text-aqua-500 uppercase tracking-wider">Заявка</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Оставьте заявку</h2>
+        <p class="mt-3 text-slate-300 leading-relaxed">Мастер перезвонит в течение 10 минут. Или напишите нам там, где вам удобнее:</p>
+        <div class="mt-6 grid sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3 gap-3">
+          <a href="https://t.me/your_username" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:brightness-110 font-bold px-5 py-3.5 rounded-xl transition">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.9c.9-.3 1.6.2 1.4 1.4z"/></svg>Telegram
+          </a>
+          <a href="https://wa.me/10000000000" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-[#1FAF55] hover:brightness-110 font-bold px-5 py-3.5 rounded-xl transition">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>WhatsApp
+          </a>
+          <a href="tel:+10000000000" class="inline-flex items-center justify-center gap-2 border border-white/25 hover:bg-white/10 font-bold px-5 py-3.5 rounded-xl transition">
+            <i data-icon="phone" class="w-5 h-5"></i>Позвонить
+          </a>
         </div>
-        <div>
-          <label class="text-sm font-semibold" for="f-phone">Телефон</label>
-          <input id="f-phone" name="phone" type="tel" required class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-water-500" placeholder="+1 (___) ___-__-__" />
-        </div>
-        <div class="grid sm:grid-cols-2 gap-4">
+      </div>
+
+      <form id="order-form" class="bg-white text-navy-900 rounded-2xl p-5 sm:p-8 space-y-5 shadow-card" novalidate>
+        <div class="grid sm:grid-cols-2 gap-5">
           <div>
-            <label class="text-sm font-semibold" for="f-problem">Проблема</label>
-            <select id="f-problem" name="problem" class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-water-500">
+            <label class="block text-sm font-bold mb-1.5" for="f-name">Имя</label>
+            <input id="f-name" name="name" required autocomplete="name" class="field" placeholder="Как к вам обращаться" />
+          </div>
+          <div>
+            <label class="block text-sm font-bold mb-1.5" for="f-phone">Телефон</label>
+            <input id="f-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" class="field" placeholder="+1 (___) ___-__-__" />
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-bold mb-1.5" for="f-problem">Проблема</label>
+            <select id="f-problem" name="problem" class="field">
               <option>Засор</option><option>Протечка</option><option>Смеситель</option>
               <option>Бойлер</option><option>Унитаз</option><option>Другое</option>
             </select>
           </div>
           <div>
-            <label class="text-sm font-semibold" for="f-time">Когда удобно</label>
-            <select id="f-time" name="time" class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 bg-white focus:outline-none focus:border-water-500">
+            <label class="block text-sm font-bold mb-1.5" for="f-time">Когда удобно</label>
+            <select id="f-time" name="time" class="field">
               <option>Как можно скорее</option><option>Сегодня вечером</option><option>Завтра</option>
             </select>
           </div>
         </div>
         <div>
-          <label class="text-sm font-semibold" for="f-comment">Комментарий</label>
-          <textarea id="f-comment" name="comment" rows="3" class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-water-500" placeholder="Адрес, подробности"></textarea>
+          <label class="block text-sm font-bold mb-1.5" for="f-comment">Комментарий</label>
+          <textarea id="f-comment" name="comment" rows="3" class="field resize-y" placeholder="Адрес, подробности"></textarea>
         </div>
         <div>
-          <label class="text-sm font-semibold" for="f-photo">Фото проблемы (необязательно)</label>
-          <input id="f-photo" name="photo" type="file" accept="image/*" class="mt-1 w-full text-sm file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-water-50 file:text-water-700 file:font-semibold" />
+          <span class="block text-sm font-bold mb-1.5">Фото проблемы (необязательно)</span>
+          <label for="f-photo" class="flex items-center gap-3 border border-dashed border-slate-300 hover:border-brand-500 hover:bg-brand-50 rounded-xl px-4 py-3.5 cursor-pointer transition">
+            <span class="w-10 h-10 shrink-0 rounded-lg bg-brand-50 text-brand-600 grid place-items-center"><i data-icon="camera" class="w-5 h-5"></i></span>
+            <span class="min-w-0">
+              <span id="photo-name" class="block text-sm font-semibold truncate">Прикрепить фото</span>
+              <span class="block text-xs text-slate-500">JPG или PNG, с телефона или компьютера</span>
+            </span>
+          </label>
+          <input id="f-photo" name="photo" type="file" accept="image/*" class="sr-only" />
         </div>
-        <p id="form-error" class="hidden text-sm text-red-600"></p>
-        <button id="submit-btn" class="w-full bg-alarm-500 hover:bg-alarm-600 text-white font-bold py-4 rounded-2xl">Вызвать мастера</button>
-        <p class="text-xs text-slate-400 text-center">Нажимая кнопку, вы соглашаетесь на обработку контактных данных</p>
+        <p id="form-error" class="hidden text-sm font-semibold text-red-600" role="alert"></p>
+        <button id="submit-btn" class="w-full inline-flex items-center justify-center gap-2 bg-warm-400 hover:bg-warm-300 disabled:opacity-60 text-navy-950 font-extrabold py-4 rounded-xl text-base transition">Вызвать мастера</button>
+        <p class="text-xs text-slate-500 text-center">Нажимая кнопку, вы соглашаетесь на обработку контактных данных</p>
       </form>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="max-w-3xl mx-auto px-4 py-20">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-center">Частые вопросы</h2>
+  <!-- 10. FAQ -->
+  <section id="faq" class="max-w-3xl mx-auto px-4 py-20 md:py-24">
+    <p class="text-sm font-bold text-aqua-600 uppercase tracking-wider text-center">FAQ</p>
+    <h2 class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight text-center">Частые вопросы</h2>
     <div class="mt-10 space-y-3" id="faq-list"></div>
   </section>
 
   <!-- Подвал -->
-  <footer class="bg-ink text-slate-400">
-    <div class="max-w-6xl mx-auto px-4 py-10 grid sm:grid-cols-3 gap-6 text-sm">
+  <footer class="bg-navy-950 text-slate-400">
+    <div class="max-w-6xl mx-auto px-4 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
       <div>
-        <div class="text-white font-extrabold text-lg">АкваМастер</div>
-        <p class="mt-2">Сантехнические услуги в вашем городе</p>
+        <div class="flex items-center gap-2.5 text-white font-extrabold text-lg">
+          <span class="w-8 h-8 rounded-lg bg-brand-600 grid place-items-center"><i data-icon="droplet" class="w-4 h-4"></i></span>
+          АкваМастер
+        </div>
+        <p class="mt-3">Сантехнические услуги в вашем городе</p>
       </div>
       <div>
-        <div class="text-white font-semibold">Контакты</div>
-        <p class="mt-2">+1 (000) 000-00-00<br>info@example.com</p>
+        <div class="text-white font-bold">Навигация</div>
+        <ul class="mt-3 space-y-2">
+          <li><a href="#services" class="hover:text-white">Услуги</a></li>
+          <li><a href="#how" class="hover:text-white">Как работаем</a></li>
+          <li><a href="#area" class="hover:text-white">Зона выезда</a></li>
+          <li><a href="#faq" class="hover:text-white">Вопросы</a></li>
+        </ul>
       </div>
       <div>
-        <div class="text-white font-semibold">График</div>
-        <p class="mt-2">Ежедневно, круглосуточно</p>
+        <div class="text-white font-bold">Контакты</div>
+        <p class="mt-3 space-y-2">
+          <a href="tel:+10000000000" class="block hover:text-white">+1 (000) 000-00-00</a>
+          <a href="mailto:info@example.com" class="block hover:text-white">info@example.com</a>
+        </p>
+      </div>
+      <div>
+        <div class="text-white font-bold">График</div>
+        <p class="mt-3">Ежедневно, круглосуточно</p>
       </div>
     </div>
   </footer>
 
-  <!-- Плавающие кнопки -->
-  <div class="fixed right-4 bottom-4 z-50 flex flex-col gap-3">
-    <a href="https://t.me/your_username" target="_blank" rel="noopener" aria-label="Telegram" class="w-14 h-14 rounded-full bg-[#229ED9] grid place-items-center shadow-lg hover:scale-105 transition">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.9c.9-.3 1.6.2 1.4 1.4z"/></svg>
+  <!-- Плавающие кнопки (компьютер) -->
+  <div class="hidden md:flex fixed right-5 bottom-5 z-50 flex-col gap-3">
+    <a href="https://t.me/your_username" target="_blank" rel="noopener" aria-label="Telegram" class="w-14 h-14 rounded-full bg-[#229ED9] text-white grid place-items-center shadow-lg hover:brightness-110 transition">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.9c.9-.3 1.6.2 1.4 1.4z"/></svg>
     </a>
-    <a href="https://wa.me/10000000000" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-14 h-14 rounded-full bg-[#25D366] grid place-items-center shadow-lg hover:scale-105 transition">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+    <a href="https://wa.me/10000000000" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-14 h-14 rounded-full bg-[#1FAF55] text-white grid place-items-center shadow-lg hover:brightness-110 transition">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
     </a>
-    <a href="tel:+10000000000" aria-label="Позвонить" class="w-14 h-14 rounded-full bg-alarm-500 grid place-items-center shadow-lg hover:scale-105 transition md:hidden">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+  </div>
+
+  <!-- Нижняя панель (мобильный) -->
+  <div class="md:hidden fixed inset-x-0 bottom-0 z-50 bg-white border-t border-slate-200 px-3 py-2.5 grid grid-cols-[1fr_1fr_auto_auto] gap-2" style="padding-bottom: max(10px, env(safe-area-inset-bottom));">
+    <a href="tel:+10000000000" class="inline-flex items-center justify-center gap-2 bg-warm-400 text-navy-950 font-extrabold rounded-xl h-12"><i data-icon="phone" class="w-5 h-5"></i>Позвонить</a>
+    <a href="#order" class="inline-flex items-center justify-center gap-2 bg-brand-600 text-white font-bold rounded-xl h-12"><i data-icon="clipboard" class="w-5 h-5"></i>Заявка</a>
+    <a href="https://t.me/your_username" target="_blank" rel="noopener" aria-label="Telegram" class="w-12 h-12 rounded-xl bg-[#229ED9] text-white grid place-items-center">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.9c.9-.3 1.6.2 1.4 1.4z"/></svg>
+    </a>
+    <a href="https://wa.me/10000000000" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-12 h-12 rounded-xl bg-[#1FAF55] text-white grid place-items-center">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
     </a>
   </div>
 
   <!-- Успех -->
-  <div id="success" class="hidden fixed inset-0 z-[60] bg-ink/70 grid place-items-center px-4">
-    <div class="bg-white rounded-3xl p-8 max-w-sm text-center">
-      <div class="w-16 h-16 rounded-full bg-green-100 text-green-600 grid place-items-center mx-auto text-3xl">✓</div>
-      <h3 class="mt-4 text-xl font-extrabold">Заявка принята</h3>
-      <p class="mt-2 text-slate-500" id="success-text">Мастер перезвонит в течение 10 минут.</p>
-      <button id="success-close" class="mt-6 w-full bg-water-500 hover:bg-water-600 text-white font-bold py-3 rounded-2xl">Хорошо</button>
+  <div id="success" class="hidden fixed inset-0 z-[60] bg-navy-950/70 grid place-items-center px-4" role="dialog" aria-modal="true" aria-labelledby="success-title">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center">
+      <span class="mx-auto w-16 h-16 rounded-full bg-aqua-50 text-aqua-600 grid place-items-center"><i data-icon="check" class="w-8 h-8"></i></span>
+      <h3 id="success-title" class="mt-4 text-xl font-extrabold">Заявка принята</h3>
+      <p class="mt-2 text-slate-600" id="success-text">Мастер перезвонит в течение 10 минут.</p>
+      <button id="success-close" class="mt-6 w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition">Хорошо</button>
     </div>
   </div>
 
   <script>
     // ===== НАСТРОЙКА =====
     // Адрес Cloudflare Worker, который пересылает заявку в Telegram (см. README).
-    // Пока пусто — форма работает в демо-режиме и ничего не отправляет.
+    // Если пусто — форма работает в демо-режиме и ничего не отправляет.
     const FORM_ENDPOINT = 'https://plumbing-form.vladivanuta52.workers.dev';
 
-    const services = [
-      { icon: '🚿', title: 'Устранение засоров', desc: 'Раковины, ванны, канализация. Механическая и гидродинамическая прочистка.', price: 'от 600 ₴' },
-      { icon: '🚰', title: 'Замена смесителя', desc: 'Демонтаж старого, установка нового, проверка на протечки.', price: 'от 450 ₴' },
-      { icon: '🔥', title: 'Бойлеры', desc: 'Установка, подключение, чистка от накипи, замена ТЭНа.', price: 'от 900 ₴' },
-      { icon: '🚽', title: 'Унитазы и инсталляции', desc: 'Установка, замена арматуры бачка, устранение подтеканий.', price: 'от 700 ₴' },
-      { icon: '🧰', title: 'Трубы и разводка', desc: 'Замена стояков, разводка воды и канализации, пайка полипропилена.', price: 'от 1 200 ₴' },
-      { icon: '🫧', title: 'Подключение техники', desc: 'Стиральные и посудомоечные машины, фильтры для воды.', price: 'от 500 ₴' }
+    // ===== Иконки (линейные, 24x24) =====
+    const ICONS = {
+      droplet: '<path d="M12 2.7 17.7 8.3a8 8 0 1 1-11.4 0z"/>',
+      phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+      menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
+      clipboard: '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h4"/>',
+      alert: '<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+      shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+      pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+      message: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+      camera: '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+      check: '<path d="M20 6 9 17l-5-5"/>',
+      chevron: '<path d="m6 9 6 6 6-6"/>',
+      arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+      drain: '<circle cx="12" cy="12" r="9"/><path d="M8 9h8M7 12h10M8 15h8"/>',
+      leak: '<path d="M4 4h10a4 4 0 0 1 4 4v2"/><path d="M4 8h8a2 2 0 0 1 2 2"/><path d="M18 14s2.5 2.8 2.5 4.5a2.5 2.5 0 0 1-5 0c0-1.7 2.5-4.5 2.5-4.5z"/>',
+      faucet: '<path d="M3 10h10a4 4 0 0 1 4 4v1"/><path d="M8 10V6M5 6h6"/><path d="M17 18v.01M17 21v.01"/>',
+      flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+      toilet: '<path d="M7 3h10v6H7z"/><path d="M5 9h14a7 7 0 0 1-14 0z"/><path d="M9 16l-1 5h8l-1-5"/>',
+      more: '<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
+      pipes: '<path d="M3 6h9a5 5 0 0 1 5 5v10"/><path d="M3 10h8a2 2 0 0 1 2 2v9"/><path d="M15 21h4"/>',
+      washer: '<rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M8 6h.01M11 6h.01"/>',
+      wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8z"/>'
+    };
+    function icon(name, cls) {
+      return '<svg class="' + (cls || 'w-5 h-5') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || '') + '</svg>';
+    }
+    function hydrateIcons(root) {
+      (root || document).querySelectorAll('i[data-icon]').forEach(function (el) {
+        el.outerHTML = icon(el.dataset.icon, el.className);
+      });
+    }
+
+    // ===== Быстрый выбор проблемы =====
+    const quick = [
+      ['Засор', 'drain'], ['Протечка', 'leak'], ['Смеситель', 'faucet'],
+      ['Бойлер', 'flame'], ['Унитаз', 'toilet'], ['Другое', 'more']
     ];
-    document.getElementById('services-grid').innerHTML = services.map(s => `
-      <div class="group rounded-3xl border border-slate-100 p-7 hover:shadow-xl hover:border-water-100 transition flex flex-col">
-        <div class="text-3xl">${s.icon}</div>
-        <h3 class="mt-4 font-bold text-lg">${s.title}</h3>
-        <p class="mt-2 text-slate-500 text-sm flex-1">${s.desc}</p>
-        <div class="mt-5 flex items-center justify-between">
-          <span class="font-extrabold text-water-600">${s.price}</span>
-          <a href="#order" data-problem="${s.title}" class="svc-order text-sm font-bold text-ink group-hover:text-water-600">Заказать →</a>
-        </div>
-      </div>`).join('');
+    document.getElementById('quick').innerHTML = quick.map(function (q) {
+      return '<button type="button" data-problem="' + q[0] + '" class="quick-btn group flex items-center gap-3 rounded-xl border border-slate-200 px-4 py-3.5 text-left font-bold hover:border-brand-500 hover:bg-brand-50 transition">' +
+        '<span class="w-10 h-10 shrink-0 rounded-lg bg-brand-50 text-brand-600 grid place-items-center group-hover:bg-white">' + icon(q[1]) + '</span>' + q[0] + '</button>';
+    }).join('');
 
+    // ===== Услуги =====
+    const services = [
+      { icon: 'drain', title: 'Устранение засоров', desc: 'Раковины, ванны, канализация. Механическая и гидродинамическая прочистка.', price: 'от 600 ₴' },
+      { icon: 'faucet', title: 'Замена смесителя', desc: 'Демонтаж старого, установка нового, проверка на протечки.', price: 'от 450 ₴' },
+      { icon: 'flame', title: 'Бойлеры', desc: 'Установка, подключение, чистка от накипи, замена ТЭНа.', price: 'от 900 ₴' },
+      { icon: 'toilet', title: 'Унитазы и инсталляции', desc: 'Установка, замена арматуры бачка, устранение подтеканий.', price: 'от 700 ₴' },
+      { icon: 'pipes', title: 'Трубы и разводка', desc: 'Замена стояков, разводка воды и канализации, пайка полипропилена.', price: 'от 1 200 ₴' },
+      { icon: 'washer', title: 'Подключение техники', desc: 'Стиральные и посудомоечные машины, фильтры для воды.', price: 'от 500 ₴' }
+    ];
+    document.getElementById('services-grid').innerHTML = services.map(function (s) {
+      return '<article class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 hover:border-brand-200 hover:shadow-card transition">' +
+        '<span class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 grid place-items-center">' + icon(s.icon, 'w-6 h-6') + '</span>' +
+        '<h3 class="mt-5 font-bold text-lg">' + s.title + '</h3>' +
+        '<p class="mt-2 text-slate-600 text-sm leading-relaxed flex-1">' + s.desc + '</p>' +
+        '<div class="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between gap-3">' +
+          '<span class="text-xl font-extrabold text-navy-900">' + s.price + '</span>' +
+          '<a href="#order" data-problem="' + s.title + '" class="svc-order inline-flex items-center gap-1.5 text-sm font-bold text-brand-600 hover:text-brand-700 px-3 py-2 -mr-3 rounded-lg hover:bg-brand-50">Заказать' + icon('arrow', 'w-4 h-4') + '</a>' +
+        '</div></article>';
+    }).join('');
+
+    // ===== Районы =====
     const districts = ['Центр', 'Северный', 'Южный', 'Западный', 'Восточный', 'Пригород'];
-    document.getElementById('districts').innerHTML = districts
-      .map(d => `<span class="bg-white rounded-full px-4 py-2 text-sm font-semibold border border-water-100">${d}</span>`).join('');
+    document.getElementById('districts').innerHTML = districts.map(function (d) {
+      return '<li class="inline-flex items-center gap-1.5 bg-white rounded-full pl-3 pr-4 py-2 text-sm font-semibold border border-brand-100">' + icon('pin', 'w-4 h-4 text-aqua-600') + d + '</li>';
+    }).join('');
 
+    // ===== FAQ =====
     const faq = [
       ['Сколько стоит вызов мастера?', 'Выезд по городу бесплатный. Если вы отказываетесь от ремонта после диагностики, оплачивается только диагностика.'],
       ['Как быстро приедет мастер?', 'В среднем за 60 минут. Аварийные вызовы обслуживаем вне очереди, круглосуточно.'],
@@ -307,30 +502,49 @@
       ['Как можно оплатить?', 'Наличными или картой мастеру после выполнения работ.'],
       ['Привозите ли вы запчасти?', 'Да, у мастера с собой самые ходовые детали. Если нужна особая деталь, согласуем её заранее.']
     ];
-    document.getElementById('faq-list').innerHTML = faq.map(([q, a]) => `
-      <details class="rounded-2xl border border-slate-100 px-6 py-5">
-        <summary class="flex justify-between items-center cursor-pointer font-bold list-none">${q}
-          <svg class="chev transition" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <p class="mt-3 text-slate-500">${a}</p>
-      </details>`).join('');
+    document.getElementById('faq-list').innerHTML = faq.map(function (f) {
+      return '<details class="group rounded-xl border border-slate-200 bg-white open:border-brand-200 open:bg-brand-50/40">' +
+        '<summary class="flex justify-between items-center gap-4 cursor-pointer list-none px-5 sm:px-6 py-5 font-bold">' + f[0] +
+        '<span class="chev shrink-0 w-8 h-8 rounded-full bg-slate-100 grid place-items-center transition">' + icon('chevron', 'w-4 h-4') + '</span></summary>' +
+        '<p class="px-5 sm:px-6 pb-5 -mt-1 text-slate-600 leading-relaxed">' + f[1] + '</p></details>';
+    }).join('');
 
-    // Быстрый выбор проблемы → подставляем в форму
+    hydrateIcons();
+
+    // ===== Мобильное меню =====
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', function () {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); });
+    });
+
+    // ===== Быстрый выбор → подставляем в форму =====
     const problemSelect = document.getElementById('f-problem');
     function pickProblem(p) {
-      const opt = [...problemSelect.options].find(o => p.toLowerCase().includes(o.text.toLowerCase()));
+      const opt = [].slice.call(problemSelect.options).find(function (o) { return p.toLowerCase().includes(o.text.toLowerCase()); });
       problemSelect.value = opt ? opt.text : 'Другое';
       document.getElementById('order').scrollIntoView();
-      setTimeout(() => document.getElementById('f-name').focus(), 400);
+      setTimeout(function () { document.getElementById('f-name').focus({ preventScroll: true }); }, 400);
     }
-    document.querySelectorAll('.quick-btn').forEach(b => b.addEventListener('click', () => pickProblem(b.dataset.problem)));
-    document.querySelectorAll('.svc-order').forEach(a => a.addEventListener('click', e => { e.preventDefault(); pickProblem(a.dataset.problem); }));
+    document.querySelectorAll('.quick-btn').forEach(function (b) { b.addEventListener('click', function () { pickProblem(b.dataset.problem); }); });
+    document.querySelectorAll('.svc-order').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); pickProblem(a.dataset.problem); }); });
 
-    // Отправка формы
+    // ===== Фото: показываем имя файла =====
+    const photoInput = document.getElementById('f-photo');
+    const photoName = document.getElementById('photo-name');
+    photoInput.addEventListener('change', function () {
+      photoName.textContent = photoInput.files.length ? photoInput.files[0].name : 'Прикрепить фото';
+    });
+
+    // ===== Отправка формы =====
     const form = document.getElementById('order-form');
     const errBox = document.getElementById('form-error');
     const btn = document.getElementById('submit-btn');
-    form.addEventListener('submit', async e => {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
       errBox.classList.add('hidden');
       const name = form.name.value.trim();
@@ -347,19 +561,22 @@
           if (!res.ok) throw new Error();
           document.getElementById('success-text').textContent = 'Мастер перезвонит в течение 10 минут.';
         } else {
-          await new Promise(r => setTimeout(r, 700));
+          await new Promise(function (r) { setTimeout(r, 700); });
           document.getElementById('success-text').textContent = 'Демо-режим: в рабочей версии заявка сразу придёт владельцу в Telegram.';
         }
         form.reset();
+        photoName.textContent = 'Прикрепить фото';
         document.getElementById('success').classList.remove('hidden');
-      } catch {
+        document.getElementById('success-close').focus();
+      } catch (err) {
         errBox.textContent = 'Не удалось отправить. Позвоните нам или напишите в Telegram.';
         errBox.classList.remove('hidden');
       } finally {
         btn.disabled = false; btn.textContent = 'Вызвать мастера';
       }
     });
-    document.getElementById('success-close').addEventListener('click', () => document.getElementById('success').classList.add('hidden'));
+    document.getElementById('success-close').addEventListener('click', function () { document.getElementById('success').classList.add('hidden'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.getElementById('success').classList.add('hidden'); });
   </script>
 </body>
 </html>
